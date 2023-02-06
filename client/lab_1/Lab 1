@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lab 1</title>
+  </head>
+  <body>
+    <h1>
+        <strong>
+            <p>Tobie Collins Labs for INST377</p>
+        </strong>
+    </h1>
+    <h2>
+        <strong>
+            <p>Album Names</p>
+        </strong>
+    </h2>
+    <ol>
+        <li>The Mouse and The Mask - DANGERDOOM</li>
+        <li>Vaudeville Villain - Viktor Vaughn</li>
+        <li>The Infamous - Mobb Deep</li>
+        <li>Ready to Die - Biggie Smalls</li>
+        <li>Illmatic - Nas</li>
+    </ol>
+    <h3>
+        <strong>
+            <p>Image Carousel</p>
+        </strong>
+            <img src = "images/images/mochi.png"/>
+            <img src = "images/images/mochi.jpg"/>
+            <img src = "images/images/mochi.gif"/>
+            <img src = "images/images/mochi."/>
+    </h3>
+        <p>https://github.com/Khaderbai/INST377-Lab-Work</p>
+  </body>
+</html>
