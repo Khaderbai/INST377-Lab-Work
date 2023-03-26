@@ -29,42 +29,52 @@ function filterList(list, query) {
     const lowerCaseQuery = query.toLowerCase();
     return lowerCaseName.includes(lowerCaseQuery);
 
-  })
-  /*
-    Using the .filter array method, 
-    return a list that is filtered by comparing the item name in lower case
-    to the query in lower case
-
-    Ask the TAs if you need help with this
-  */
+  });
 }
+
+function cutRestaurantList(list) {
+  console.log('fired cut list');
+  const range = [...Array(15).keys()];
+  return newArray = range.map((item) => {
+    const index = getRandomIntInclusive(0, list.length - 1);
+    return list[index]
+  })
+}
+  
+
 
 async function mainEvent() { // the async keyword means we can make API requests
   const mainForm = document.querySelector('.main_form'); // This class name needs to be set on your form before you can listen for an event on it
-  const filterButton = document.querySelector('.filter_button');
+  const filterButton = document.querySelector('#filter');
+  const loadDataButton = document.querySelector('#data_load');
+  const generateListButton = document.querySelector('#generate');
+
+  const loadAnimation = document.querySelector('#data_load_animation');
+  loadAnimation.style.display = 'none';
   // Add a querySelector that targets your filter button here
 
   let currentList = []; // this is "scoped" to the main event function
   
   /* We need to listen to an "event" to have something happen in our page - here we're listening for a "submit" */
-  mainForm.addEventListener('submit', async (submitEvent) => { // async has to be declared on every function that needs to "await" something
-    
-    // This prevents your page from becoming a list of 1000 records from the county, even if your form still has an action set on it
-    submitEvent.preventDefault(); 
-    
+  loadDataButton.addEventListener('click', async (submitEvent) => { // async has to be declared on every function that needs to "await" something
     // this is substituting for a "breakpoint" - it prints to the browser to tell us we successfully submitted the form
-    console.log('form submission'); 
+    console.log('loading data');
+    loadAnimation.style.display = 'inline-block';
 
     // Basic GET request - this replaces the form Action
     const results = await fetch('https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json');
 
     // This changes the response from the GET into data we can use - an "object"
     currentList = await results.json();
-    console.table(currentList); 
-    injectHTML(currentList);
+
+    loadAnimation.style.display = 'none';
+    console.table(currentList);
+
+
   });
 
-  filterDataButton.addEventListener('click', (event) => {
+
+  filterButton.addEventListener('click', (event) => {
     console.log('clicked filter button');
 
     const formData = new FormData(mainForm);
@@ -76,17 +86,13 @@ async function mainEvent() { // the async keyword means we can make API requests
     injectHTML(newList);
     console.log(newList);
   })
-  /*
-    Now that you HAVE a list loaded, write an event listener set to your filter button
-    it should use the 'new FormData(target-form)' method to read the contents of your main form
-    and the Object.fromEntries() method to convert that data to an object we can work with
 
-    When you have the contents of the form, use the placeholder at line 7
-    to write a list filter
-
-    Fire it here and filter for the word "pizza"
-    you should get approximately 46 results
-  */
+  generateListButton.addEventListener('click', (event) => {
+    console.log('generate new list');
+    const restaurantsList = cutRestaurantList(currentList);
+  
+    injectHTML(restaurantsList);
+  })
 }
 
 /*
@@ -95,3 +101,5 @@ async function mainEvent() { // the async keyword means we can make API requests
   In this case, we load some data when the form has submitted
 */
 document.addEventListener('DOMContentLoaded', async () => mainEvent()); // the async keyword means we can make API requests
+
+
